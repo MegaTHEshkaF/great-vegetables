@@ -1,17 +1,31 @@
-import { View, Text, Image, FlatList, StyleSheet } from 'react-native';
+import { View, Text, Image, FlatList, StyleSheet, Platform } from 'react-native';
 import { Link } from 'expo-router';
+import { useState, useEffect } from 'react';
 
 import { useRegion } from '@/hooks/RegionContext';
-import { VEGGIE_TYPES } from '@/constants/VeggieTypes';
-const sortedVeggies = VEGGIE_TYPES.sort((a, b) => a.name.localeCompare(b.name));
+// import { VEGGIE_TYPES } from '@/constants/VeggieTypes';
+// const sortedVeggies = VEGGIE_TYPES.sort((a, b) => a.name.localeCompare(b.name));
 
 const App = () => {
+    const [groups, setGroups] = useState([]);
     const { selectedRegion } = useRegion();
+
+    useEffect(() => {
+        async function fetchData() {
+            // const db = await SQLite.openDatabaseAsync('@/database/database.db');
+            // const allRows = await db.getAllAsync('SELECT * FROM groups');
+            // console.log(allRows);
+            // setGroups(allRows);
+        }
+
+        fetchData();
+        console.log(groups);
+    }, [groups]);
 
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Текущая область: {selectedRegion}</Text>
-            <FlatList
+            {/* <FlatList
                 data={sortedVeggies}
                 keyExtractor={(item) => item.name}
                 renderItem={({ item }) => (
@@ -23,7 +37,7 @@ const App = () => {
                     <Text style={styles.name}>{item.name}</Text>
                 </Link>
                 )}
-            />
+            /> */}
         </View>
     )
 }
